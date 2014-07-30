@@ -1,0 +1,40 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Projet</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Libelle</th>
+                <td>{{ entity.libelle }}</td>
+            </tr>
+            <tr>
+                <th>Technologie</th>
+                <td>{{ entity.technologie }}</td>
+            </tr>
+            <tr>
+                <th>Visibilite</th>
+                <td>{{ entity.visibilite }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('projet') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('projet_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

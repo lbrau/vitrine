@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+     {% block header %}
+        {% include "AppVitrineBundle:headers:header.html.twig" %}
+     {% endblock header %}
+  </head>
+
+  <body>
+    {% block body %}
+    {% endblock body %}
+
+    {% block footer %}
+       {% include "AppVitrineBundle:footers:footer.html.twig" %}
+    {% endblock footer %}
+  </body>
+</html>

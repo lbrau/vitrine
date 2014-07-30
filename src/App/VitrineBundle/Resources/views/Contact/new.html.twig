@@ -1,0 +1,41 @@
+{% extends "AppVitrineBundle::Layout.html.twig" %}
+{% block body -%}
+   <div class="container">
+   <div class="row">
+       <div class="col-lg-5 col-sm-5 address">
+           <h4>Contact professionnel</h4>
+           <p>
+               Laurent BRAU <br>
+               8 square Pasteur <br>
+               93400 SAINT-OUEN
+           </p>
+           <br>
+           <br>
+           <br>
+           <p>
+               Téléphone mobile <br>
+               <span class="muted">06.76.47.42.72</span><br>
+               Email <br>
+               <span class="muted">laurent.brau@gmail.com</span>
+           </p>
+       </div>
+       <div class="col-lg-7 col-sm-7 address">
+           <h4>Send a Message</h4>
+           <div class="contact-form">
+                  {{ form_start(form) }}
+                  {{ form_errors(form) }}
+                  {{ form_row(form.nom) }}
+                  {{ form_row(form.prenom) }}
+                  {{ form_row(form.societe) }}
+                  {{ form_row(form.email) }}
+                  {{ form_row(form.message) }}
+                  <br>
+                  {{ form_end(form) }}
+           </div>
+       </div>
+   </div>
+
+</div>
+{% endblock %}
+
+

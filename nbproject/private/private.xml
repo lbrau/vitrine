@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/Applications/MAMP/htdocs/my_vitrine/src/App/VitrineBundle/Resources/views/Default/index.html.twig</file>
+            <file>file:/Applications/MAMP/htdocs/my_vitrine/src/App/VitrineBundle/Resources/views/Layout.html.twig</file>
+            <file>file:/Applications/MAMP/htdocs/my_vitrine/src/App/VitrineBundle/Resources/views/footers/footer.html.twig</file>
+            <file>file:/Applications/MAMP/htdocs/my_vitrine/src/App/VitrineBundle/Resources/views/headers/header.html.twig</file>
+            <file>file:/Applications/MAMP/htdocs/my_vitrine/src/App/VitrineBundle/Controller/DefaultController.php</file>
+            <file>file:/Applications/MAMP/htdocs/my_vitrine/src/App/VitrineBundle/Controller/ProjetController.php</file>
+            <file>file:/Applications/MAMP/htdocs/my_vitrine/src/App/VitrineBundle/Tests/Controller/DefaultControllerTest.php</file>
+            <file>file:/Applications/MAMP/htdocs/my_vitrine/src/App/VitrineBundle/Tests/Controller/ContactControllerTest.php</file>
+            <file>file:/Applications/MAMP/htdocs/my_vitrine/src/App/VitrineBundle/Controller/ContactController.php</file>
+            <file>file:/Applications/MAMP/htdocs/my_vitrine/vendor/symfony/symfony/src/Symfony/Bundle/FrameworkBundle/Test/WebTestCase.php</file>
+            <file>file:/Applications/MAMP/htdocs/my_vitrine/app/phpunit.xml.dist</file>
+            <file>file:/Applications/MAMP/htdocs/my_vitrine/app/config/parameters.yml</file>
+        </group>
+    </open-files>
+</project-private>
