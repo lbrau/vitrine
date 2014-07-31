@@ -40,11 +40,13 @@ class ContactType extends AbstractType
                         'class' => 'form-control'
                     )
             ))
-//            ->add('actif', 'checkbox', array(
-//                'attr' => array(
-//                    'checked' => 'checked'
-//                )
-//            ))
+            ->add('statut', 'checkbox', array(
+                'label' => 'Recruteur',
+                'attr' => array(
+                    'checked' => 'checked',
+                    'class' => 'switch has-switch switch-on'
+                )
+            ))
         ;
     }
     

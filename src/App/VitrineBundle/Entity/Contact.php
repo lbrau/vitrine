@@ -62,6 +62,13 @@ class Contact
      * @ORM\Column(name="actif", type="boolean")
      */
     private $actif;
+    
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="statut", type="boolean")
+     */
+    private $statut;
 
 
     /**
@@ -210,5 +217,28 @@ class Contact
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * Set statut
+     *
+     * @param boolean $statut
+     * @return Contact
+     */
+    public function setStatut($statut)
+    {
+        $this->statut = $statut;
+
+        return $this;
+    }
+
+    /**
+     * Get statut
+     *
+     * @return boolean 
+     */
+    public function getStatut()
+    {
+        return $this->statut;
     }
 }

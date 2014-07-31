@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
   <head>
      {% block header %}
         {% include "AppVitrineBundle:headers:header.html.twig" %}
@@ -8,6 +8,7 @@
 
   <body>
     {% block body %}
+       {% include "AppVitrineBundle:headers:header_theme.html.twig" %}
     {% endblock body %}
 
     {% block footer %}
