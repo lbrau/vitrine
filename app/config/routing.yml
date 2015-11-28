@@ -1,0 +1,13 @@
+front_front:
+    resource: "@FrontFrontBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+back_back:
+    resource: "@BackBackBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
