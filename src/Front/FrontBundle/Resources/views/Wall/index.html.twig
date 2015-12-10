@@ -1,0 +1,157 @@
+{% extends '::base.html.twig' %}
+{% block sidebar %}
+    {% include "FrontFrontBundle:Menu:menu.html.twig" %}
+{% endblock %}
+{% block body %}
+    <!--main content start-->
+    <section id="main-content" ng-app="wallmod">
+        <section class="wrapper site-min-height" ng-controller="WallController">
+            <!-- page start-->
+            <div class="row">
+                <div class="col-md-9">
+                    <section class="panel">
+                        <div class="cover-photo">
+                            <div class="fb-timeline-img">
+                                <img src="{{ asset('bundles/backback/img/diplome2.jpg') }}" alt="">
+                            </div>
+                            <div class="fb-name">
+                                <h2><a href="#">Laurent BRAU</a></h2>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="profile-thumb">
+                                <img src="{{ asset('bundles/backback/img/myHead.png') }}" alt="">
+                            </div>
+                            <a href="#" class="fb-user-mail">laurent.brau@gmail.com</a>
+                        </div>
+                    </section>
+                    <section class="panel profile-info">
+                        <form>
+                            <textarea disabled class="form-control input-lg p-text-area" rows="2" placeholder="Whats in your mind today?"></textarea>
+                        </form>
+                    </section>
+                    {% for article in articles %}
+                    <section class="panel">
+                        <div class="panel-body">
+                            <div class="fb-user-thumb">
+                                <img src="{{ asset('bundles/backback/img/myHead.png') }}" alt="">
+                            </div>
+                            <div class="fb-user-details">
+                                <h3><a href="#" class="#">{{ article.articleTitle }}</a></h3>
+                                <p>Il y a 10 minutes</p>
+                            </div>
+                            <div class="clearfix"></div>
+                            <p class="fb-user-status">{{ article.articleContent }}
+                            </p>
+                            <div class="fb-status-container fb-border">
+                                <div class="fb-time-action">
+                                    <a href="#" title="Like this">Like</a>
+                                    <span>-</span>
+                                    <a href="#" title="Leave a comment">Comments</a>
+                                    <span>-</span>
+                                    <a href="#" title="Send this to friend or post it on your time line">Share</a>
+                                </div>
+                            </div>
+                            {% for commentary in  article.commentaries %}
+                                <div class="fb-status-container fb-border fb-gray-bg">
+                                    <div class="fb-time-action like-info">
+                                        <a href="#">Jhon Due, </a>
+                                        <a href="#">Danieal Kalion</a>
+                                        <span>et</span>
+                                        <a href="#">plus de  40</a>
+                                        <span>ont aimés</span>
+                                    </div>
+                                    <ul class="fb-comments">
+                                        <li>
+                                            <a href="#" class="cmt-thumb">
+                                                <img src="{{ asset('bundles/backback/img/avatar1_small.jpg') }}" alt="">
+                                            </a>
+                                            <div class="cmt-details">
+                                                <div><a href="#">Jhone due</a></div>
+                                                <div>
+                                                    <span> {{ commentary.commentaryContent }} </span>
+                                                    <p>Il y a 40 - <a href="#" class="like-link">Like</a></p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                            {% endfor %}
+                            <div class="margin fb-comments">
+                                <a href="#" class="cmt-thumb">
+                                    <img src="{{ asset('bundles/backback/img/avatar1.jpg') }}" alt="">
+                                </a>
+                                <div class="cmt-form">
+                                    <textarea class="form-control" placeholder="Exprimez-vous sur l'article :)" name="articleCommentary"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    {% endfor %}
+                </div>
+                <div class="col-md-3">
+                    <div class="fb-timeliner">
+                        <h2 class="recent-highlight">Recent</h2>
+                        <ul>
+                            <li class="active"><a href="#">Décembre</a></li>
+                            <li><a href="#">Novembre</a></li>
+                            <li><a href="#">Octobre</a></li>
+                            <li><a href="#">Septembre</a></li>
+                            <li><a href="#">Aout</a></li>
+                            <li><a href="#">Juillet</a></li>
+                            <li><a href="#">Juin</a></li>
+                            <li><a href="#">Mai</a></li>
+                            <li><a href="#">Avril</a></li>
+                            <li><a href="#">Mars</a></li>
+                            <li><a href="#">Février</a></li>
+                            <li><a href="#">Janvier</a></li>
+                        </ul>
+                    </div>
+                    <div class="fb-timeliner">
+                        <h2>2012</h2>
+                        <ul>
+                            <li><a href="#">Aout</a></li>
+                            <li><a href="#">Juillet</a></li>
+                            <li><a href="#">Juin</a></li>
+                            <li><a href="#">Mai</a></li>
+                            <li><a href="#">Avril</a></li>
+                            <li><a href="#">Mars</a></li>
+                            <li><a href="#">Février</a></li>
+                            <li><a href="#">Janvier</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="fb-timeliner">
+                        <h2>2011</h2>
+                        <ul>
+                            <li><a href="#">Mai</a></li>
+                            <li><a href="#">Avril</a></li>
+                            <li><a href="#">Mars</a></li>
+                            <li><a href="#">Février</a></li>
+                            <li><a href="#">Janvier</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- page end-->
+        </section>
+    </section>
+    <!--main content end-->
+    <!--footer start-->
+    <footer class="site-footer">
+        <div class="text-center">
+            Promotion ETNA 2015 &copy; by Laurent BRAU.
+            <a href="#" class="go-top">
+                <i class="fa fa-angle-up"></i>
+            </a>
+        </div>
+    </footer>
+    <!--footer end-->
+{% endblock %}
+{#{% block javascripts %}#}
+    {#{{ parent() }}#}
+    {#<script src="{{ asset('bundles/backback/js/angular_libraries/angular.js') }}"></script>#}
+    {#<script src="{{ asset('bundles/backback/js/Wall/Module/*.js') }}"></script>#}
+    {#<script src="{{ asset('bundles/backback/js/Wall/Controller/*.js') }}"></script>#}
+{#{% endblock %}#}

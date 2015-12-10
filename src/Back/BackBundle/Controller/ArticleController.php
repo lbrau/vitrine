@@ -134,13 +134,10 @@ class ArticleController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('BackBackBundle:Article')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Article entity.');
         }
-
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
@@ -169,6 +166,7 @@ class ArticleController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing Article entity.
      *

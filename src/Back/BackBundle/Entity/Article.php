@@ -2,7 +2,10 @@
 
 namespace Back\BackBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Back\BackBundle\Entity\Commentary;
+
 
 /**
  * Article
@@ -32,7 +35,7 @@ class Article
     private $categories;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Commentary", inversedBy="article", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="Commentary", mappedBy="article")
      */
     private $commentaries;
 
@@ -63,6 +66,14 @@ class Article
      * @ORM\Column(name="enabled", type="boolean")
      */
     private $enabled;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->commentaries = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -171,6 +182,30 @@ class Article
     }
 
     /**
+     * Set author
+     *
+     * @param \Back\BackBundle\Entity\User $author
+     *
+     * @return Article
+     */
+    public function setAuthor(\Back\BackBundle\Entity\User $author = null)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return \Back\BackBundle\Entity\User
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
      * Set categories
      *
      * @param \Back\BackBundle\Entity\Category $categories
@@ -195,54 +230,36 @@ class Article
     }
 
     /**
-     * Set commentaries
+     * Add commentary
      *
-     * @param \Back\BackBundle\Entity\Commentary $commentaries
+     * @param \Back\BackBundle\Entity\Commentary $commentary
      *
      * @return Article
      */
-    public function setCommentaries(\Back\BackBundle\Entity\Commentary $commentaries = null)
+    public function addCommentary(\Back\BackBundle\Entity\Commentary $commentary)
     {
-        $this->commentaries = $commentaries;
+        $this->commentaries[] = $commentary;
 
         return $this;
+    }
+
+    /**
+     * Remove commentary
+     *
+     * @param \Back\BackBundle\Entity\Commentary $commentary
+     */
+    public function removeCommentary(\Back\BackBundle\Entity\Commentary $commentary)
+    {
+        $this->commentaries->removeElement($commentary);
     }
 
     /**
      * Get commentaries
      *
-     * @return \Back\BackBundle\Entity\Commentary
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getCommentaries()
     {
         return $this->commentaries;
-    }
-
-    public function toString() {
-        return $this->getArticleTitle().' - '. $this->getArticleContent();
-    }
-
-    /**
-     * Set author
-     *
-     * @param \Back\BackBundle\Entity\User $author
-     *
-     * @return Article
-     */
-    public function setAuthor(\Back\BackBundle\Entity\User $author = null)
-    {
-        $this->author = $author;
-
-        return $this;
-    }
-
-    /**
-     * Get author
-     *
-     * @return \Back\BackBundle\Entity\User
-     */
-    public function getAuthor()
-    {
-        return $this->author;
     }
 }

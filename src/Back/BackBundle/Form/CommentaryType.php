@@ -17,6 +17,7 @@ class CommentaryType extends AbstractType
         $builder
             ->add('commentaryTitle')
             ->add('commentaryContent')
+            ->add('commentaryAuthor')
             ->add('enabled')
         ;
     }

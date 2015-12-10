@@ -3,6 +3,7 @@
 namespace Back\BackBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Back\BackBundle\Entity\Article;
 
 /**
  * Commentary
@@ -22,9 +23,17 @@ class Commentary
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="Article", mappedBy="commentaries", cascade={"all"})
+     * @ORM\ManyToOne(targetEntity="Article", inversedBy="commentaries")
+     * @ORM\JoinColumn(name="article_id", referencedColumnName="id")
      */
     private $article;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="CommentaryAuthor", type="string", length=50)
+     */
+    private $commentaryAuthor;
 
     /**
      * @var string
@@ -46,7 +55,6 @@ class Commentary
      * @ORM\Column(name="enabled", type="boolean")
      */
     private $enabled;
-
 
     /**
      * Get id
@@ -129,49 +137,56 @@ class Commentary
     {
         return $this->enabled;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->article = new \Doctrine\Common\Collections\ArrayCollection();
+
+    public function __toString() {
+        return $this->commentaryTitle;
     }
 
     /**
-     * Add article
+     * Set article
      *
      * @param \Back\BackBundle\Entity\Article $article
      *
      * @return Commentary
      */
-    public function addArticle(\Back\BackBundle\Entity\Article $article)
+    public function setArticle(\Back\BackBundle\Entity\Article $article = null)
     {
-        $this->article[] = $article;
+        $this->article = $article;
 
         return $this;
     }
 
     /**
-     * Remove article
-     *
-     * @param \Back\BackBundle\Entity\Article $article
-     */
-    public function removeArticle(\Back\BackBundle\Entity\Article $article)
-    {
-        $this->article->removeElement($article);
-    }
-
-    /**
      * Get article
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Back\BackBundle\Entity\Article
      */
     public function getArticle()
     {
         return $this->article;
     }
 
-    public function __toString() {
-        return $this->getCommentaryTitle();
+    /**
+     * Set commentaryAuthor
+     *
+     * @param string $commentaryAuthor
+     *
+     * @return Commentary
+     */
+    public function setCommentaryAuthor($commentaryAuthor)
+    {
+        $this->commentaryAuthor = $commentaryAuthor;
+
+        return $this;
+    }
+
+    /**
+     * Get commentaryAuthor
+     *
+     * @return string
+     */
+    public function getCommentaryAuthor()
+    {
+        return $this->commentaryAuthor;
     }
 }
