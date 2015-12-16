@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Mosaddek">
+    <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <link rel="shortcut icon" href="img/favicon.png">
+    <title>{% block title %}FB Wall!{% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('bundles/frontfront/css/bootstrap.min.css') }}" />
+        <link rel="stylesheet" href="{{ asset('bundles/frontfront/css/theme.css') }}" />
+        <link rel="stylesheet" href="{{ asset('bundles/frontfront/css/bootstrap-reset.css') }}" />
+        <link rel="stylesheet" href="{{ asset('bundles/frontfront/assets/font-awesome/css/font-awesome.css') }}" />
+        <link rel="stylesheet" href="{{ asset('bundles/frontfront/css/flexslider.css') }}" />
+        {#<link rel="stylesheet" href="{{ asset('bundles/frontfront/css/jquery.bxslider.css') }}" />#}
+        <link rel="stylesheet" href="{{ asset('bundles/frontfront/css/style.css') }}" />
+        <link rel="stylesheet" href="{{ asset('bundles/frontfront/css/style-responsive.css') }}" />
+        <link rel="stylesheet" href="{{ asset('bundles/backback/css/custom-style.css') }}" />
+    {% endblock %}
+</head>
+<body>
+    {% block body %}
+    {% endblock body %}
+    </body>
+    {% block javascripts %}
+        {# ---- angular libarries ---- #}
+        <script src="{{ asset('bundles/backback/js/angular_libraries/angular.js') }}"></script>
+        <script src="{{ asset('bundles/backback/js/angular_libraries/wall_mod.js') }}"></script>
+        <script src="{{ asset('bundles/backback/js/angular_libraries/WallController.js') }}"></script>
+        {# ---- JQ libarries ---- #}
+        <script src="{{ asset('bundles/backback/js/jquery.js') }}"></script>
+        <script src="{{ asset('bundles/backback/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('bundles/backback/js/hover-dropdown.js') }}"></script>
+        <script src="{{ asset('bundles/frontfront/assets/bxslider/jquery.bxslider.js') }}"></script>
+        <script src="{{ asset('bundles/frontfront/js/common-scripts.js') }}"></script>
+    {% endblock %}
+</html>
+

@@ -17,7 +17,6 @@ use Back\BackBundle\Form\ArticleType;
  */
 class ArticleController extends Controller
 {
-
     /**
      * Lists all Article entities.
      *

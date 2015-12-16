@@ -1,3 +1,11 @@
 .margin {
     margin: 10px;
 }
+.portrait {
+    width: 100px;
+    border-radius: 10px;
+}
+
+.sphere {
+    border-radius: 50%;
+}
