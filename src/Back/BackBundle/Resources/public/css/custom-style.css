@@ -9,3 +9,23 @@
 .sphere {
     border-radius: 50%;
 }
+
+.icon {
+    width: 30px;
+    display: inline-block;
+}
+
+.lg-70 {
+    width: 70%;
+    display: inline-block;
+}
+
+.btn-send {
+    background-color: #121283;
+    color: white;
+}
+
+.btn-send :hover{
+    background-color: #1919b8;
+    color: white;
+}

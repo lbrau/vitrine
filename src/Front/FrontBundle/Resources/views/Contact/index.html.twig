@@ -1,4 +1,7 @@
 {% extends '::base_front.html.twig' %}
+{% block sidebar %}
+    {% include "FrontFrontBundle:Menu:menu_front.html.twig" %}
+{% endblock %}
 {% block body %}
     <!--header start-->
     <header class="header-frontend">
@@ -48,24 +51,6 @@
         </div>
     </header>
     <!--header end-->
-    <!--breadcrumbs start-->
-    <div class="breadcrumbs">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-sm-4">
-                    <h1>Contacts</h1>
-                </div>
-                <div class="col-lg-8 col-sm-8">
-                    <ol class="breadcrumb pull-right">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Pages</a></li>
-                        <li class="active">Contacts</li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--breadcrumbs end-->
     <!--google map start-->
     <div class="contact-map">
         <div id="map-canvas" style="width: 100%; height: 400px"></div>
@@ -78,7 +63,8 @@
                 <img class="portrait" src="{{ asset('bundles/backback/img/myHead.png') }}" alt=""/>
                 <p>
                     Laurent BRAU <br/>
-                    8, Square Pasteur 93400 SAINT-OUEN <br/>
+                    8, Square Pasteur <br/>
+                    93400 .navbar-brand spanSAINT-OUEN <br/>
                     FRANCE
                 </p>
                 <br>
@@ -105,25 +91,30 @@
                         </div>
                         <div ng-show="itemCommon" class="form-group">
                             <label for="name">Nom</label>
-                            <input type="text" placeholder="{% verbatim %}{{ labelNom }}{% endverbatim %}" id="name" class="form-control">
+                            <input type="text" name="name" placeholder="{% verbatim %}{{ labelNom }}{% endverbatim %}" id="name" class="form-control">
                         </div>
                         <div ng-show="itemPro" class="form-group">
                             <label for="name">Société</label>
-                            <input type="text" placeholder="Nom de votre société" id="name" class="form-control">
+                            <input type="text" name="societe" placeholder="Nom de votre société" id="name" class="form-control">
                         </div>
                         <div ng-show="itemPro" class="form-group">
                             <label for="email">Email</label>
-                            <input type="text" placeholder="nom.prenom@domain.com" id="email" class="form-control">
+                            <input type="text" name="email" placeholder="nom.prenom@domain.com" id="email" class="form-control">
+                        </div>
+                        <div ng-show="itemFriend" class="form-group">
+                            <label for="file">File</label>
+                            <input type="file" name="file" placeholder="send me a pic" id="file" class="form-control">
                         </div>
                         <div ng-show="itemCommon" class="form-group">
-                            <label for="phone">Telephone</label>
-                            <input type="text" placeholder="0606060606" id="phone" class="form-control">
+                            <div><label for="phone">Telephone</label></div>
+                            <input ng-init="deleteBtn=false" ng-change="formatNum()" ng-model="phone" type="text" name="phone" placeholder="Entrez notre numéro 0611223344" id="phone" class="form-control lg-70" maxlength="14">
+                            <img class="icon" ng-click="deletePhone()" ng-show="deleteBtn" src="{{ asset('bundles/frontfront/img/croix_rouge.jpg') }}" alt=""/>
                         </div>
                         <div ng-show="itemCommon" class="form-group">
-                            <label for="message">Message</label>
-                            <textarea placeholder="Dites moi tout en 2000 caractères ! XD" rows="5" class="form-control"></textarea>
+                            <div><label for="message">Message</label></div>
+                            <textarea name="message" placeholder="Dites moi tout en 2000 caractères ! XD" rows="5" class="form-control"></textarea>
                         </div>
-                        <input data-ng-show="itemCommon " class="btn btn-danger sphere" type="submit" value="Envoyer"/>
+                        <input data-ng-show="itemCommon " class="btn btn-send sphere" type="submit" value="Envoyer"/>
                     </form>
                 </div>
             </div>

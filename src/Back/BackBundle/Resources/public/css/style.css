@@ -3816,7 +3816,7 @@ table.sliders tr td {
 }
 
 .p-head {
-    color: #f77b6f;
+    color: #121283;
     font-weight: 400;
     font-size: 14px;
 }
@@ -4351,7 +4351,7 @@ tr.odd.gradeX td.sorting_1, tr.even.gradeX td.sorting_1, table.display tr.even.g
 
 
 .full-width .nav > li > a:hover, .full-width .nav  li.active a, .full-width .nav li.dropdown a:hover , .full-width .nav li.dropdown.open a:focus, .full-width .nav .open > a, .full-width  .nav .open > a:hover, .full-width  .nav .open > a:focus{
-    background-color: #F77B6F;
+    background-color: #121283;
     text-decoration: none;
     color: #fff;
     transition: all 0.3s ease 0s;
@@ -4763,7 +4763,7 @@ tr.odd.gradeX td.sorting_1, tr.even.gradeX td.sorting_1, table.display tr.even.g
 }
 
 .most-popular {
-    background: #f77b6f;
+    background: #121283;
     color: #fff;
 }
 
