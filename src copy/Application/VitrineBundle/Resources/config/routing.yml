@@ -1,3 +1,0 @@
-application_vitrine_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: ApplicationVitrineBundle:Default:index }
