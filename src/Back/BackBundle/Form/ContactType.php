@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class UserType extends AbstractType
+class ContactType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,9 +15,12 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Nom')
-            ->add('type de contact')
-            ->add('file')
+            ->add('fullName')
+            ->add('society')
+            ->add('emailAddress')
+            ->add('file', 'file')
+            ->add('phoneNumber')
+            ->add('messageContent')
         ;
     }
     
@@ -27,7 +30,7 @@ class UserType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Back\BackBundle\Entity\User'
+            'data_class' => 'Back\BackBundle\Entity\Contact'
         ));
     }
 
@@ -36,6 +39,6 @@ class UserType extends AbstractType
      */
     public function getName()
     {
-        return 'back_backbundle_user';
+        return 'back_backbundle_contact';
     }
 }

@@ -57,6 +57,9 @@
     </div>
     <!--google map end-->
     <div class="container" ng-app="wallmod">
+        {% if contactMessage is defined %}
+            <div class="label label-info">{{ contactMessage }}</div>
+        {% endif %}
         <div class="row">
             <div class="col-lg-5 col-sm-5 address">
                 <h4>Parlons-nous :)</h4>
@@ -64,11 +67,9 @@
                 <p>
                     Laurent BRAU <br/>
                     8, Square Pasteur <br/>
-                    93400 .navbar-brand spanSAINT-OUEN <br/>
+                    93400 SAINT-OUEN <br/>
                     FRANCE
                 </p>
-                <br>
-                <br>
                 <br>
                 <p>
                     Mobile <br/>
@@ -79,42 +80,94 @@
             </div>
             <div class="col-lg-7 col-sm-7 address" ng-controller="ContactController">
                 <div class="contact-form">
-                    <form name="form" method="post" action="#">
+                    {#{% if app.session.hasFlash('success')  %}#}
+                        {#{% set message = app.session.getflash('success') %}#}
+                        {#<p>{{ message }}</p>#}
+                    {#{% endif %}#}
+                    {% for flashMessage in app.session.flashbag.get('success') %}
+                        <div class="label label-success">{{ flashMessage }}</div>
+                        <div class=""><img width="100px" src="{{ asset(picPath) }}" alt=""/></div>
+                    {% endfor %}
+
+                    <form name="form" method="post" action="{{ path('contactMessage') }}" enctype="multipart/form-data">
+                        {% for flashMessage in app.session.flashbag.get('error') %}
+                            <div class="alert alert-block alert-danger">
+                                {{ flashMessage }} <br/>
+                                {{ form_errors(form) }}
+                            </div>
+
+
+                        {% endfor %}
                         <div class="form-group">
                             <label for="phone">Vous êtes un</label>
-                            <select ng-model="profilChoice" ng-change="display()" class="form-control" name="raison-choice" id="raison-choice">
-                                <option value="pro">Professionnel(le)</option>
-                                <option value="perso">Ami(e)</option>
-                                <option value="connaissance">Connaissance</option>
-                                <option value="autre">Rien de tout ca :/</option>
+                            <select ng-model="profilChoice" ng-change="display()" class="form-control" name="type" id="raison-choice">
+                                <option value="pro">Professionnel</option>
+                                {#<option value="perso">Ami(e)</option>#}
+                                {#<option value="connaissance">Connaissance</option>#}
+                                <option value="autre">Autres</option>
                             </select>
                         </div>
                         <div ng-show="itemCommon" class="form-group">
-                            <label for="name">Nom</label>
-                            <input type="text" name="name" placeholder="{% verbatim %}{{ labelNom }}{% endverbatim %}" id="name" class="form-control">
+                            {{ form_label(form.fullName, 'Commment dois-je vous appeler ?') }}
+                            {{ form_errors(form.fullName) }}
+                            {{ form_widget(form.fullName, {'attr': {'class': 'form-control'}}) }}
                         </div>
                         <div ng-show="itemPro" class="form-group">
-                            <label for="name">Société</label>
-                            <input type="text" name="societe" placeholder="Nom de votre société" id="name" class="form-control">
+                            {{ form_label(form.society, 'Société') }}
+                            {{ form_errors(form.society) }}
+                            {{ form_widget(form.society, {'attr': {'class': 'form-control'}}) }}
                         </div>
                         <div ng-show="itemPro" class="form-group">
-                            <label for="email">Email</label>
-                            <input type="text" name="email" placeholder="nom.prenom@domain.com" id="email" class="form-control">
+                            {{  form_label(form.emailAddress, 'E-mail') }}
+                            {{ form_errors(form.emailAddress) }}
+                            {{ form_widget(form.emailAddress, {'attr': {'class': 'form-control'}}) }}
                         </div>
-                        <div ng-show="itemFriend" class="form-group">
-                            <label for="file">File</label>
-                            <input type="file" name="file" placeholder="send me a pic" id="file" class="form-control">
+                        <div ng-show="itemPro" class="form-group">
+                            {{ form_label(form.file, 'Souhaitez-vous joindre une pièce ?') }}
+                            {% if form_errors(form.file) is not empty %}
+                                <div class="alert alert-block alert-danger" style="display: block; margin-bottom: 10px;">
+                                        {{ form_errors(form.file) }}
+                                </div>
+                            {% endif %}
+                            {{ form_widget(form.file, {'attr': {'class': 'form-control'}}) }}
                         </div>
                         <div ng-show="itemCommon" class="form-group">
-                            <div><label for="phone">Telephone</label></div>
-                            <input ng-init="deleteBtn=false" ng-change="formatNum()" ng-model="phone" type="text" name="phone" placeholder="Entrez notre numéro 0611223344" id="phone" class="form-control lg-70" maxlength="14">
-                            <img class="icon" ng-click="deletePhone()" ng-show="deleteBtn" src="{{ asset('bundles/frontfront/img/croix_rouge.jpg') }}" alt=""/>
+                            {{ form_label(form.phoneNumber, 'Numéro de téléphone') }}
+                            {{ form_errors(form.phoneNumber) }}
+                            {{ form_widget(form.phoneNumber, {'attr': {'class': 'form-control'}}) }}
                         </div>
                         <div ng-show="itemCommon" class="form-group">
-                            <div><label for="message">Message</label></div>
-                            <textarea name="message" placeholder="Dites moi tout en 2000 caractères ! XD" rows="5" class="form-control"></textarea>
+                            {{ form_label(form.messageContent, 'Votre message') }}
+                            {{ form_errors(form.messageContent) }}
+                            {{ form_widget(form.messageContent, {'attr': {'class': 'form-control'}}) }}
                         </div>
-                        <input data-ng-show="itemCommon " class="btn btn-send sphere" type="submit" value="Envoyer"/>
+                        {{ form_rest(form) }}
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">Confirmation d'envoi</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        Confirmez-vous l'envoi de ce document. <br/>
+                                        N'oubliez pas que vous pouvez télécharger mon dernier CV mis à jour.
+                                    </div>
+                                    <div class="modal-body">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <input data-toggle="modal" data-target="#myModal" data-ng-show="itemCommon " class="btn btn-send sphere" type="submit" value="Confimer"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {#<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">#}
+                            {#Launch demo modal#}
+                        {#</button>#}
+                        <input type="hidden" id="back_backbundle_contact__token" name="back_backbundle_contact[_token]" value="KUlvM3mJU-AS-FGsjKSzMgF0oM43VF47ad6Rs9u_Os0">
+                        <input data-toggle="modal" data-target="#myModal" data-ng-show="itemCommon " class="btn btn-send sphere" value="Envoyer"/>
                     </form>
                 </div>
             </div>
@@ -207,6 +260,8 @@
         {#&#123;&#35;{{ form_end(form) }}&#35;&#125;#}
     {#&#123;&#35;</section>&#35;&#125;#}
 {#</section>#}
+    <!-- Button trigger modal -->
+
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
