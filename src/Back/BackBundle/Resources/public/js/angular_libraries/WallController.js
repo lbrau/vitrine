@@ -15,7 +15,7 @@ wallMod.controller('WallController', function($scope, $http){
             "commentary": $scope.commentaryAreaField
         };
 
-        $http.post('http://myscope.local/app_dev.php/ajaxtest', data)
+        $http.post('http://myscope.local/app_dev.php/commentarySent', data)
             .then(
             function(e){console.log('ok');},
             function(e){console.log('failed')}

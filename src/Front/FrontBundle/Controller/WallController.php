@@ -33,10 +33,10 @@ class WallController extends Controller
     /**
      * Display the wall
      *
-     * @Route("/ajaxtest")
+     * @Route("/commentarySent")
      * @Method("POST")
      */
-    public function ajax(Request $request)
+    public function commentManagerajax(Request $request)
     {
 
         // TODO pour la validation de la requette ajax, il faudra faire
