@@ -15,7 +15,7 @@
 /app/config/parameters.ini
 
 # Jet Parameters
-.idea/
+.idea/*
 
 # Managed by Composer
 /app/bootstrap.php.cache
