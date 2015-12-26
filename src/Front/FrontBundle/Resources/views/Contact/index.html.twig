@@ -1,0 +1,297 @@
+{% extends '::base_front.html.twig' %}
+{% block sidebar %}
+    {% include "FrontFrontBundle:Menu:menu_front.html.twig" %}
+{% endblock %}
+{% block body %}
+    <!--header start-->
+    <header class="header-frontend">
+        <div class="navbar navbar-default navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="fa fa-bar"></span>
+                        <span class="fa fa-bar"></span>
+                        <span class="fa fa-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">Laurent<span>BRAU</span></a>
+                </div>
+                <div class="navbar-collapse collapse ">
+                    <ul class="nav navbar-nav">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="services.html">Service</a></li>
+                        <li class="dropdown ">
+                            <a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false">Feature <b class=" fa fa-angle-down"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="typography.html">Typography</a></li>
+                                <li><a href="button.html">Buttons</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="portfolio.html">Portfolio</a></li>
+                        <li><a href="price.html">Price</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li class="active"><a href="contact.html">Contact</a></li>
+                        <li class="dropdown language">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                <img alt="" src="{{ asset('bundles/frontfront/img/flags/fr.png') }}">
+                                <span class="username">FR</span>
+                                <b class=" fa fa-angle-down"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#"><img alt="" src="{{ asset('bundles/frontfront/img/flags/es.png') }}"> Spanish</a></li>
+                                <li><a href="#"><img alt="" src="{{ asset('bundles/frontfront/img/flags/de.png') }}"> German</a></li>
+                                <li><a href="#"><img alt="" src="{{ asset('bundles/frontfront/img/flags/ru.png') }}"> Russian</a></li>
+                                <li><a href="#"><img alt="" src="{{ asset('bundles/frontfront/img/flags/us.png') }}"> US</a></li>
+                            </ul>
+                        </li>
+                        <li><input type="text" placeholder=" Search" class="form-control search"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!--header end-->
+    <!--google map start-->
+    <div class="contact-map">
+        <div id="map-canvas" style="width: 100%; height: 400px"></div>
+    </div>
+    <!--google map end-->
+    <div class="container" ng-app="wallmod">
+        {% if contactMessage is defined %}
+            <div class="label label-info">{{ contactMessage }}</div>
+        {% endif %}
+        <div class="row">
+            <div class="col-lg-5 col-sm-5 address">
+                <h4>Parlons-nous :)</h4>
+                <img class="portrait" src="{{ asset('bundles/backback/img/myHead.png') }}" alt=""/>
+                <p>
+                    Laurent BRAU <br/>
+                    8, Square Pasteur <br/>
+                    93400 SAINT-OUEN <br/>
+                    FRANCE
+                </p>
+                <br>
+                <p>
+                    Mobile <br/>
+                    <span class="muted">06 76 47 42 72</span><br/>
+                    Email <br/>
+                    <span class="muted">laurent.brau@gmail.com</span>
+                </p>
+            </div>
+            <div class="col-lg-7 col-sm-7 address" ng-controller="ContactController">
+                <div class="contact-form">
+                    {#{% if app.session.hasFlash('success')  %}#}
+                        {#{% set message = app.session.getflash('success') %}#}
+                        {#<p>{{ message }}</p>#}
+                    {#{% endif %}#}
+                    {% for flashMessage in app.session.flashbag.get('success') %}
+                        <div class="label label-success">{{ flashMessage }}</div>
+                        <div class=""><img width="100px" src="{{ asset(picPath) }}" alt=""/></div>
+                    {% endfor %}
+
+                    <form name="form" method="post" action="{{ path('contactMessage') }}" enctype="multipart/form-data">
+                        {% for flashMessage in app.session.flashbag.get('error') %}
+                            <div class="alert alert-block alert-danger">
+                                {{ flashMessage }} <br/>
+                                {{ form_errors(form) }}
+                            </div>
+
+
+                        {% endfor %}
+                        <div class="form-group">
+                            <label for="phone">Vous êtes un</label>
+                            <select ng-model="profilChoice" ng-change="display()" class="form-control" name="type" id="raison-choice">
+                                <option value="pro">Professionnel</option>
+                                {#<option value="perso">Ami(e)</option>#}
+                                {#<option value="connaissance">Connaissance</option>#}
+                                <option value="autre">Autres</option>
+                            </select>
+                        </div>
+                        <div ng-show="itemCommon" class="form-group">
+                            {{ form_label(form.fullName, 'Commment dois-je vous appeler ?') }}
+                            {{ form_errors(form.fullName) }}
+                            {{ form_widget(form.fullName, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div ng-show="itemPro" class="form-group">
+                            {{ form_label(form.society, 'Société') }}
+                            {{ form_errors(form.society) }}
+                            {{ form_widget(form.society, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div ng-show="itemPro" class="form-group">
+                            {{  form_label(form.emailAddress, 'E-mail') }}
+                            {{ form_errors(form.emailAddress) }}
+                            {{ form_widget(form.emailAddress, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div ng-show="itemPro" class="form-group">
+                            {{ form_label(form.file, 'Souhaitez-vous joindre une pièce ?') }}
+                            {% if form_errors(form.file) is not empty %}
+                                <div class="alert alert-block alert-danger" style="display: block; margin-bottom: 10px;">
+                                        {{ form_errors(form.file) }}
+                                </div>
+                            {% endif %}
+                            {{ form_widget(form.file, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div ng-show="itemCommon" class="form-group">
+                            {{ form_label(form.phoneNumber, 'Numéro de téléphone') }}
+                            {{ form_errors(form.phoneNumber) }}
+                            {{ form_widget(form.phoneNumber, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div ng-show="itemCommon" class="form-group">
+                            {{ form_label(form.messageContent, 'Votre message') }}
+                            {{ form_errors(form.messageContent) }}
+                            {{ form_widget(form.messageContent, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        {{ form_rest(form) }}
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">Confirmation d'envoi</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        Confirmez-vous l'envoi de ce document. <br/>
+                                        N'oubliez pas que vous pouvez télécharger mon dernier CV mis à jour.
+                                    </div>
+                                    <div class="modal-body">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <input data-toggle="modal" data-target="#myModal" data-ng-show="itemCommon " class="btn btn-send sphere" type="submit" value="Confimer"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {#<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">#}
+                            {#Launch demo modal#}
+                        {#</button>#}
+                        <input type="hidden" id="back_backbundle_contact__token" name="back_backbundle_contact[_token]" value="KUlvM3mJU-AS-FGsjKSzMgF0oM43VF47ad6Rs9u_Os0">
+                        <input data-toggle="modal" data-target="#myModal" data-ng-show="itemCommon " class="btn btn-send sphere" value="Envoyer"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--footer start-->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-sm-3">
+                    <h1>contact info</h1>
+                    <address>
+                        <p>Square Pasteur</p>
+                        <p>93400 SAINT-OUEN</p>
+                        <p>Phone : 06.76.47.42.72</p>
+                        <p>Email : <a href="javascript:;">laurent.brau@gmail.com</a></p>
+                    </address>
+                </div>
+                {#a#}
+                <div class="col-lg-3 col-sm-3 col-lg-offset-1">
+                    <h1>stay connected</h1>
+                    <ul class="social-link-footer list-unstyled">
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-github"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--footer end-->
+
+{#<section id="main-content" ng-app="wallmod">#}
+    {#<section class="wrapper">#}
+        {#<div class="row">#}
+            {#<div class="col-lg-12">#}
+                {#<section class="panel">#}
+                    {#<header class="panel-heading">#}
+                        {#<div>#}
+                            {#<img class="portrait" src="{{ asset('bundles/backback/img/myHead.png') }}" alt=""/>#}
+                            {#<div>Laurent BRAU</div>#}
+                            {#<div>laurent.brau@gmail.com</div>#}
+                            {#<div>0676474272</div>#}
+
+                        {#</div>#}
+                    {#</header>#}
+                    {#<div class="panel-body">#}
+                        {#{{ form_start(form) }}#}
+                            {#<div class="form-group">#}
+                                {#<label ng-init="nomValue='Qui êtes vous ?'" ng-model ="typeLabel" for="">{% verbatim %}{{ nomValue }}{% endverbatim %}</label>#}
+                                {#{{ form_widget(form.nom, {'attr': {'class':'form-control col-lg-1', 'ng-model': 'nom', 'ng-change': 'test()'}}) }}#}
+                            {#</div>#}
+                            {#<div class="form-group">#}
+                                {#<label ng-init="typeValue='Vous êtes'" ng-model ="typeLabel" for="">{% verbatim %}{{ typeValue }}{% endverbatim %}</label>#}
+                                {#{{ form_widget(form.type, {'attr': {'class':'form-control col-lg-6'}}) }}#}
+                            {#</div>#}
+                            {#<div class="form-group">#}
+                                {#<label ng-init="typeValue='Vous êtes'" ng-model ="typeLabel" for="">{% verbatim %}{{ typeValue }}{% endverbatim %}</label>#}
+                                {#{{ form_widget(form.domaine, {'attr': {'class':'form-control col-lg-6'}}) }}#}
+                            {#</div>#}
+                            {#<div class="form-group" ng-show="displayFile">#}
+                                {#<label ng-init="fileValue='titi'" ng-model ="typeLabel" for="">{% verbatim %}{{ fileValue }}{% endverbatim %}</label>#}
+                                {#{{ form_widget(form.file, {'attr': {'class':'form-control col-lg-6'}}) }}#}
+                            {#</div>#}
+                            {#<p>#}
+                                {#<button ng-click="unsubmit($event)" type="submit" class="btn btn-info">Submit</button>#}
+                            {#</p>#}
+                         {#{{ form_end(form) }}#}
+                    {#</div>#}
+                {#</section>#}
+            {#</div>#}
+        {#</div>#}
+    {#</section>#}
+    {#&#123;&#35;<section class="wrapper site-min-height" ng-controller="ContactController">&#35;&#125;#}
+        {#&#123;&#35;{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}&#35;&#125;#}
+        {#&#123;&#35;<div class="col-lg-6">&#35;&#125;#}
+            {#&#123;&#35;<label ng-init="nomValue='Qui êtes vous ?'" ng-model ="typeLabel" for="">{% verbatim %}{{ nomValue }}{% endverbatim %}</label>&#35;&#125;#}
+            {#&#123;&#35;{{ form_widget(form.nom, {'attr': {'class':'form-control col-lg-1', 'ng-model': 'nom', 'ng-change': 'test()'}}) }}&#35;&#125;#}
+            {#&#123;&#35;{{ form_widget(form.nom2, {'attr': {'class':'form-control col-lg-1'}}) }}&#35;&#125;#}
+        {#&#123;&#35;</div>&#35;&#125;#}
+
+        {#&#123;&#35;<label ng-init="typeValue='titi'" ng-model ="typeLabel" for="">{% verbatim %}{{ typeValue }}{% endverbatim %}</label>&#35;&#125;#}
+        {#&#123;&#35;{{ form_widget(form.type, {'attr': {'class':'form-control col-lg-1'}}) }}&#35;&#125;#}
+        {#&#123;&#35;<div ng-show="displayFile">&#35;&#125;#}
+            {#&#123;&#35;<label ng-init="fileValue='titi'" ng-model ="typeLabel" for="">{% verbatim %}{{ fileValue }}{% endverbatim %}</label>&#35;&#125;#}
+            {#&#123;&#35;{{ form_widget(form.file, {'attr': {'class':'form-control col-lg-1'}}) }}&#35;&#125;#}
+        {#&#123;&#35;</div>&#35;&#125;#}
+        {#&#123;&#35;<input ng-click="unsubmit($event)" type="submit"/>&#35;&#125;#}
+        {#&#123;&#35;{{ form_end(form) }}&#35;&#125;#}
+    {#&#123;&#35;</section>&#35;&#125;#}
+{#</section>#}
+    <!-- Button trigger modal -->
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&AMP;sensor=false"></script>
+    <!--common script for all pages-->
+    <script src=""></script>
+
+    <script type="text/javascript" src="{{ asset('bundles/backback/js/jquery.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/backback/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/backback/js/hover-dropdown.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/frontfront/assets/bxslider/jquery.bxslider.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/backback/js/angular_libraries/ContactController.js') }}"></script>
+    <script>
+        //google map
+        function initialize() {
+            var myLatlng = new google.maps.LatLng(49.2333, 2.9);
+            var mapOptions = {
+                zoom: 8,
+                scrollwheel: false,
+                center: myLatlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+            var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+            var marker = new google.maps.Marker({
+                position: myLatlng,
+                map: map,
+                title: 'Hello World!'
+            });
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+{% endblock %}

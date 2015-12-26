@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - tc_base@51.254.39.193" uuid="a64660c1-9f99-4b7b-ac52-89fe5c336870">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+  <data-source name="MySQL - Diago@localhost" uuid="57fb0736-a49d-479d-a3ff-24719f232bb9">
+    <database-info product="MySQL" version="5.6.24" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.37 ( Revision: 09940f05b4c98150f352e787a2549f11a2e9da93 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="mixed" quoted-identifiers="upper"/>
+    <schema name="" catalog="Diago"/>
+    <table name="Digit" schema="" catalog="Diago" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="polynome_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="position" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="value" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_83B009736A706631" columns="polynome_id" ref-table="Polynome" ref-schema="" ref-catalog="Diago" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="IDX_83B009736A706631" unique="false" columns="polynome_id"/>
+    </table>
+    <table name="Polynome" schema="" catalog="Diago" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="degre" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="resultat" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="nom" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="concat_form" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK_83B009736A706631" table="Digit" schema="" catalog="Diago" columns="polynome_id"/>
+    </table>
+  </data-source>
+  <data-source name="MySQL - vitrine_base@localhost" uuid="2fe35e2e-bfbd-4789-8396-77a46d1ad117">
+    <database-info product="MySQL" version="5.6.24" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.37 ( Revision: 09940f05b4c98150f352e787a2549f11a2e9da93 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="mixed" quoted-identifiers="upper"/>
+    <schema name="" catalog="vitrine_base"/>
+    <table name="article" schema="" catalog="vitrine_base" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="categories_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="commentaries_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="ArticleTitle" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="ArticleContent" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="articlePicture" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="enabled" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="author_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_23A0E661B0C88DC" columns="commentaries_id" ref-table="commentary" ref-schema="" ref-catalog="vitrine_base" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_23A0E66A21214B7" columns="categories_id" ref-table="category" ref-schema="" ref-catalog="vitrine_base" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_23A0E66F675F31B" columns="author_id" ref-table="user" ref-schema="" ref-catalog="vitrine_base" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="IDX_23A0E661B0C88DC" unique="false" columns="commentaries_id"/>
+      <index name="IDX_23A0E66A21214B7" unique="false" columns="categories_id"/>
+      <index name="IDX_23A0E66F675F31B" unique="false" columns="author_id"/>
+    </table>
+    <table name="category" schema="" catalog="vitrine_base" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="categoryTitle" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="description" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="enabled" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK_23A0E66A21214B7" table="article" schema="" catalog="vitrine_base" columns="categories_id"/>
+    </table>
+    <table name="commentary" schema="" catalog="vitrine_base" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="CommentaryTitle" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="CommentaryContent" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="enabled" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK_23A0E661B0C88DC" table="article" schema="" catalog="vitrine_base" columns="commentaries_id"/>
+    </table>
+    <table name="user" schema="" catalog="vitrine_base" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="firstname" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="lastname" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="username" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="enabled" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK_23A0E66F675F31B" table="article" schema="" catalog="vitrine_base" columns="author_id"/>
+    </table>
+  </data-source>
+</component>
