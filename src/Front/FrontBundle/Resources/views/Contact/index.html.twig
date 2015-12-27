@@ -57,9 +57,6 @@
     </div>
     <!--google map end-->
     <div class="container" ng-app="wallmod">
-        {% if contactMessage is defined %}
-            <div class="label label-info">{{ contactMessage }}</div>
-        {% endif %}
         <div class="row">
             <div class="col-lg-5 col-sm-5 address">
                 <h4>Parlons-nous :)</h4>
@@ -80,13 +77,9 @@
             </div>
             <div class="col-lg-7 col-sm-7 address" ng-controller="ContactController">
                 <div class="contact-form">
-                    {#{% if app.session.hasFlash('success')  %}#}
-                        {#{% set message = app.session.getflash('success') %}#}
-                        {#<p>{{ message }}</p>#}
-                    {#{% endif %}#}
                     {% for flashMessage in app.session.flashbag.get('success') %}
-                        <div class="label label-success">{{ flashMessage }}</div>
-                        <div class=""><img width="100px" src="{{ asset(picPath) }}" alt=""/></div>
+                        <div class="alert alert-success">{{ flashMessage }}</div>
+                        {#<div class=""><img width="100px" src="{{ asset(picPath) }}" alt=""/></div>#}
                     {% endfor %}
 
                     <form name="form" method="post" action="{{ path('contactMessage') }}" enctype="multipart/form-data">
@@ -95,7 +88,6 @@
                                 {{ flashMessage }} <br/>
                                 {{ form_errors(form) }}
                             </div>
-
 
                         {% endfor %}
                         <div class="form-group">

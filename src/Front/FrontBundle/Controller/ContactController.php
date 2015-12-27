@@ -36,12 +36,51 @@ class ContactController extends Controller
         if ($request->isMethod('post')) {
         $form->handleRequest($request);
             if ($form->isValid()) {
-                $this->container->get('front.upload_manager')->uploadDocument($contactMessage);
+                $pathFile = $this->container->get('front.upload_manager')->uploadDocument($contactMessage);
                 $confirmMessage = "Message envoyé ";
                 $picPath = $contactMessage->getFile();
                 $this->get('session')->getFlashBag()->add('success', 'Votre message a bien été envoyé !');
                 $em->persist($contactMessage);
                 $em->flush();
+                $form = $this->createForm(new ContactType());
+
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('confirm')
+                    ->setFrom('send@example.com')
+                    ->setTo('laurent.brau@gmail.com');
+
+                // TODO voir pour mettre tout les paht file des images pour alimenter le template.
+                // TODO le path file correspond au web path des images.
+                $data = $message->embed(\Swift_Image::fromPath($pathFile));
+                $message
+                    ->setBody(
+                        $this->renderView(
+                        // app/Resources/views/Emails/registration.html.twig
+                            'FrontFrontBundle:templates_mail:default.html.twig',
+                            array(
+                                'path' => $picPath,
+                                'image_src' => $data
+                            )
+                        ),
+                        'text/html'
+                    )
+
+                    ->attach(\Swift_Attachment::fromPath($pathFile))
+                    /*
+                     * If you also want to include a plaintext version of the message
+                    ->addPart(
+                        $this->renderView(
+                            'Emails/registration.txt.twig',
+                            array('name' => $name)
+                        ),
+                        'text/plain'
+                    )
+                    */
+                ;
+
+                $this->get('mailer')->send($message);
+
+//                return $this->render('FrontFrontBundle:Contact:confirmation.html.twig', array('confirmMessage' => $confirmMessage));
             } else {
                 foreach ($form->getErrors() as $er) {
                     echo $er->count() . ' | ';

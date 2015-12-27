@@ -47,7 +47,16 @@ class Contact
      * @var string
      *
      * @ORM\Column(name="file", type="string", length=255, nullable=true)
-     * @Assert\File(maxSize="6000000")
+     * @Assert\File(
+     *     maxSize = "1024k",
+     *     mimeTypes =
+     *      {
+     *          "application/pdf",
+     *          "application/x-pdf",
+     *          "image/jpeg"
+     *      },
+     *     mimeTypesMessage = "Please upload a valid PDF"
+     * )
      */
     private $file;
 

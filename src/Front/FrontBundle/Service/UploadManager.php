@@ -43,6 +43,7 @@ class UploadManager {
         try {
             $file = $contactMessage->getFile();
             $contactDirectory = $this->rootDir.self::PATH_DIRECTORY;
+            $pathFile = $contactDirectory.'/'.$file->getClientOriginalName();
             // ---- Path where image uploaded sent ----
             $file->move($contactDirectory, $file->getClientOriginalName());
             // ---- Path about web image path for displayed ----
@@ -50,6 +51,8 @@ class UploadManager {
         } catch (Exception $e) {
             echo "L'upload de l'image a échoué pour une raison suivante : ".$e->getMessage();
         }
+
+        return $pathFile;
 
     }
 }

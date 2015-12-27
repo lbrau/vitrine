@@ -1,0 +1,92 @@
+{% extends '::base_front.html.twig' %}
+{% block sidebar %}
+    {% include "FrontFrontBundle:Menu:menu_front.html.twig" %}
+{% endblock %}
+{% block body %}
+    <!--header start-->
+    <header class="header-frontend">
+        <div class="navbar navbar-default navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="fa fa-bar"></span>
+                        <span class="fa fa-bar"></span>
+                        <span class="fa fa-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">Laurent<span>BRAU</span></a>
+                </div>
+                <div class="navbar-collapse collapse ">
+                    <ul class="nav navbar-nav">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="services.html">Service</a></li>
+                        <li class="dropdown ">
+                            <a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false">Feature <b class=" fa fa-angle-down"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="typography.html">Typography</a></li>
+                                <li><a href="button.html">Buttons</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="portfolio.html">Portfolio</a></li>
+                        <li><a href="price.html">Price</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li class="active"><a href="contact.html">Contact</a></li>
+                        <li class="dropdown language">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                <img alt="" src="{{ asset('bundles/frontfront/img/flags/fr.png') }}">
+                                <span class="username">FR</span>
+                                <b class=" fa fa-angle-down"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#"><img alt="" src="{{ asset('bundles/frontfront/img/flags/es.png') }}"> Spanish</a></li>
+                                <li><a href="#"><img alt="" src="{{ asset('bundles/frontfront/img/flags/de.png') }}"> German</a></li>
+                                <li><a href="#"><img alt="" src="{{ asset('bundles/frontfront/img/flags/ru.png') }}"> Russian</a></li>
+                                <li><a href="#"><img alt="" src="{{ asset('bundles/frontfront/img/flags/us.png') }}"> US</a></li>
+                            </ul>
+                        </li>
+                        <li><input type="text" placeholder=" Search" class="form-control search"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!--header end-->
+    <div class="container" ng-app="wallmod">
+        <div class="row">
+            <div class="col-lg-7 col-sm-7 address" ng-controller="ContactController">
+                <div class="contact-form">
+                    {% for flashMessage in app.session.flashbag.get('success') %}
+                        <div class="alert alert-success">{{ flashMessage }}</div>
+                        <div class=""><img width="100px" src="{{ asset(confirmMessage) }}" alt=""/></div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--footer start-->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-sm-3">
+                    <h1>contact info</h1>
+                    <address>
+                        <p>Square Pasteur</p>
+                        <p>93400 SAINT-OUEN</p>
+                        <p>Phone : 06.76.47.42.72</p>
+                        <p>Email : <a href="javascript:;">laurent.brau@gmail.com</a></p>
+                    </address>
+                </div>
+                <div class="col-lg-3 col-sm-3 col-lg-offset-1">
+                    <h1>stay connected</h1>
+                    <ul class="social-link-footer list-unstyled">
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-github"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+{% endblock %}
