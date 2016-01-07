@@ -34,6 +34,24 @@ class UploadManager {
         $this->rootDir = $rootDir;
     }
 
+
+    /**
+     * Methode test pour unit test
+     *
+     * @param $a
+     * @param $b
+     * @return int|string
+     */
+    public  function addition($a, $b) {
+
+        $result = "paramètres invalides";
+        if (is_int($a) && is_int($b)) {
+            $result = $a + $b;
+        }
+
+        return $result;
+    }
+
     /**
      * Manage upload action
      *
@@ -43,16 +61,29 @@ class UploadManager {
         try {
             $file = $contactMessage->getFile();
             $contactDirectory = $this->rootDir.self::PATH_DIRECTORY;
+            // ---- Generate absolute path ----
             $pathFile = $contactDirectory.'/'.$file->getClientOriginalName();
             // ---- Path where image uploaded sent ----
             $file->move($contactDirectory, $file->getClientOriginalName());
             // ---- Path about web image path for displayed ----
             $contactMessage->setFile(self::PATH_IMAGE_VIEW.'/'.$file->getClientOriginalName());
         } catch (Exception $e) {
-            echo "L'upload de l'image a échoué pour une raison suivante : ".$e->getMessage();
+            echo "Upload failed : ".$e->getMessage();
         }
 
         return $pathFile;
+    }
 
+    /**
+     * File constraints controls from upload form.
+     *
+     * @param $fileData
+     */
+    public function uploadValidatorConstaints($fileData) {
+        if ('image/jpeg' == $fileData[0]) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

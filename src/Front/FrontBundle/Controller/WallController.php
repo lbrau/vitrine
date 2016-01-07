@@ -45,17 +45,16 @@ class WallController extends Controller
         // ---- Format data from post request ----
         $data = json_decode($request->getContent(), true);
         $request->request->replace($data);
-        die('fin');
         // ---- hydrate a new commentary ----
         $commentary = new Commentary();
-//        $commentaryContent = $request->request->get('commentary');
-//        $commentary->setCommentaryContent($commentaryContent);
-//        $authorName = $request->request->get('author_commentary');
-//        $commentary->setCommentaryAuthor($authorName);
-//        $commentary->setEnabled(true);
-//        $article_id = $request->request->get('article_id');
-//        $article = $em->getRepository('BackBackBundle:Article')->find($article_id);
-//        $commentary->setArticle($article);
+        $commentaryContent = $request->request->get('commentary');
+        $commentary->setCommentaryContent($commentaryContent);
+        $authorName = $request->request->get('author_commentary');
+        $commentary->setCommentaryAuthor($authorName);
+        $commentary->setEnabled(true);
+        $article_id = $request->request->get('article_id');
+        $article = $em->getRepository('BackBackBundle:Article')->find($article_id);
+        $commentary->setArticle($article);
         // ---- create commentary validator ----
         // ---- create a form commentary ----
         $form = $this->createForm(new CommentaryType(), $commentary);
@@ -63,8 +62,6 @@ class WallController extends Controller
         $em->persist($commentary);
         $em->flush();
         die;
-
-
 
         return new JsonResponse(array('datoum' => 'tortues les data'));
     }

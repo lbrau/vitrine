@@ -79,13 +79,13 @@
                                 </div>
                             {% endfor %}
                             <div class="margin fb-comments">
-                                <div hidden class="article_id" name="article_id"  >{{ article.id }}</div>
+                                <div hidden class="article_id" name="article_id" ng-init="article_ident = $('.article_id').val()" >{{ article.id }}</div>
                                 <a href="#" class="cmt-thumb">
                                     <img src="{{ asset('bundles/backback/img/avatar1.jpg') }}" alt="">
                                 </a>
                                 <div class="cmt-form">
-                                    <input type="text" ng-model="authorCommentary" class="margin form-control" placeholder="Votre nom" name="authorName"/>
-                                    <textarea ng-model="commentaryAreaField" class="margin form-control" placeholder="Exprimez-vous sur l'article :)" name="articleCommentary"></textarea>
+                                    <input type="text" maxlength="50" ng-model="authorCommentary" class="margin form-control" placeholder="Votre nom" name="authorName"/>
+                                    <textarea ng-model="commentaryAreaField" maxlength="300" class="margin form-control" placeholder="Exprimez-vous sur l'article :)" name="articleCommentary"></textarea>
                                     <button ng-click="sendCommentary($this)" ng-model="commentaryValidedBtn" type="submit" class="commentBtn margin btn btn-info">Envoyer</button>
                                 </div>
                             </div>

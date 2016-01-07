@@ -88,7 +88,6 @@
                                 {{ flashMessage }} <br/>
                                 {{ form_errors(form) }}
                             </div>
-
                         {% endfor %}
                         <div class="form-group">
                             <label for="phone">Vous êtes un</label>
@@ -110,9 +109,9 @@
                             {{ form_widget(form.society, {'attr': {'class': 'form-control'}}) }}
                         </div>
                         <div ng-show="itemPro" class="form-group">
-                            {{  form_label(form.emailAddress, 'E-mail') }}
+                            {{ form_label(form.emailAddress, 'E-mail') }}
                             {{ form_errors(form.emailAddress) }}
-                            {{ form_widget(form.emailAddress, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_widget(form.emailAddress, {'attr': {'class': 'form-control','ng-model': 'emailField'}}) }}
                         </div>
                         <div ng-show="itemPro" class="form-group">
                             {{ form_label(form.file, 'Souhaitez-vous joindre une pièce ?') }}
@@ -121,7 +120,7 @@
                                         {{ form_errors(form.file) }}
                                 </div>
                             {% endif %}
-                            {{ form_widget(form.file, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_widget(form.file, {'attr': {'class': 'form-control', 'onchange': 'angular.element(this).scope().test(this)'}}) }}
                         </div>
                         <div ng-show="itemCommon" class="form-group">
                             {{ form_label(form.phoneNumber, 'Numéro de téléphone') }}
@@ -149,8 +148,8 @@
                                     <div class="modal-body">
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        <input data-toggle="modal" data-target="#myModal" data-ng-show="itemCommon " class="btn btn-send sphere" type="submit" value="Confimer"/>
+                                        <button ng-click="checkValidationFile($event)" type="button" class="btn btn-default" data-dismiss="modal">Non</button>
+                                        <input ng-click="checkValidationFile($event)" data-toggle="modal" data-target="#myModal" data-ng-show="itemCommon" class="btn btn-send sphere" type="submit" value="Oui"/>
                                     </div>
                                 </div>
                             </div>
@@ -170,7 +169,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-sm-3">
-                    <h1>contact info</h1>
+                    <h1>Informations</h1>
                     <address>
                         <p>Square Pasteur</p>
                         <p>93400 SAINT-OUEN</p>
@@ -180,7 +179,7 @@
                 </div>
                 {#a#}
                 <div class="col-lg-3 col-sm-3 col-lg-offset-1">
-                    <h1>stay connected</h1>
+                    <h1>Mes liens</h1>
                     <ul class="social-link-footer list-unstyled">
                         <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                         <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
@@ -192,68 +191,6 @@
         </div>
     </footer>
     <!--footer end-->
-
-{#<section id="main-content" ng-app="wallmod">#}
-    {#<section class="wrapper">#}
-        {#<div class="row">#}
-            {#<div class="col-lg-12">#}
-                {#<section class="panel">#}
-                    {#<header class="panel-heading">#}
-                        {#<div>#}
-                            {#<img class="portrait" src="{{ asset('bundles/backback/img/myHead.png') }}" alt=""/>#}
-                            {#<div>Laurent BRAU</div>#}
-                            {#<div>laurent.brau@gmail.com</div>#}
-                            {#<div>0676474272</div>#}
-
-                        {#</div>#}
-                    {#</header>#}
-                    {#<div class="panel-body">#}
-                        {#{{ form_start(form) }}#}
-                            {#<div class="form-group">#}
-                                {#<label ng-init="nomValue='Qui êtes vous ?'" ng-model ="typeLabel" for="">{% verbatim %}{{ nomValue }}{% endverbatim %}</label>#}
-                                {#{{ form_widget(form.nom, {'attr': {'class':'form-control col-lg-1', 'ng-model': 'nom', 'ng-change': 'test()'}}) }}#}
-                            {#</div>#}
-                            {#<div class="form-group">#}
-                                {#<label ng-init="typeValue='Vous êtes'" ng-model ="typeLabel" for="">{% verbatim %}{{ typeValue }}{% endverbatim %}</label>#}
-                                {#{{ form_widget(form.type, {'attr': {'class':'form-control col-lg-6'}}) }}#}
-                            {#</div>#}
-                            {#<div class="form-group">#}
-                                {#<label ng-init="typeValue='Vous êtes'" ng-model ="typeLabel" for="">{% verbatim %}{{ typeValue }}{% endverbatim %}</label>#}
-                                {#{{ form_widget(form.domaine, {'attr': {'class':'form-control col-lg-6'}}) }}#}
-                            {#</div>#}
-                            {#<div class="form-group" ng-show="displayFile">#}
-                                {#<label ng-init="fileValue='titi'" ng-model ="typeLabel" for="">{% verbatim %}{{ fileValue }}{% endverbatim %}</label>#}
-                                {#{{ form_widget(form.file, {'attr': {'class':'form-control col-lg-6'}}) }}#}
-                            {#</div>#}
-                            {#<p>#}
-                                {#<button ng-click="unsubmit($event)" type="submit" class="btn btn-info">Submit</button>#}
-                            {#</p>#}
-                         {#{{ form_end(form) }}#}
-                    {#</div>#}
-                {#</section>#}
-            {#</div>#}
-        {#</div>#}
-    {#</section>#}
-    {#&#123;&#35;<section class="wrapper site-min-height" ng-controller="ContactController">&#35;&#125;#}
-        {#&#123;&#35;{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}&#35;&#125;#}
-        {#&#123;&#35;<div class="col-lg-6">&#35;&#125;#}
-            {#&#123;&#35;<label ng-init="nomValue='Qui êtes vous ?'" ng-model ="typeLabel" for="">{% verbatim %}{{ nomValue }}{% endverbatim %}</label>&#35;&#125;#}
-            {#&#123;&#35;{{ form_widget(form.nom, {'attr': {'class':'form-control col-lg-1', 'ng-model': 'nom', 'ng-change': 'test()'}}) }}&#35;&#125;#}
-            {#&#123;&#35;{{ form_widget(form.nom2, {'attr': {'class':'form-control col-lg-1'}}) }}&#35;&#125;#}
-        {#&#123;&#35;</div>&#35;&#125;#}
-
-        {#&#123;&#35;<label ng-init="typeValue='titi'" ng-model ="typeLabel" for="">{% verbatim %}{{ typeValue }}{% endverbatim %}</label>&#35;&#125;#}
-        {#&#123;&#35;{{ form_widget(form.type, {'attr': {'class':'form-control col-lg-1'}}) }}&#35;&#125;#}
-        {#&#123;&#35;<div ng-show="displayFile">&#35;&#125;#}
-            {#&#123;&#35;<label ng-init="fileValue='titi'" ng-model ="typeLabel" for="">{% verbatim %}{{ fileValue }}{% endverbatim %}</label>&#35;&#125;#}
-            {#&#123;&#35;{{ form_widget(form.file, {'attr': {'class':'form-control col-lg-1'}}) }}&#35;&#125;#}
-        {#&#123;&#35;</div>&#35;&#125;#}
-        {#&#123;&#35;<input ng-click="unsubmit($event)" type="submit"/>&#35;&#125;#}
-        {#&#123;&#35;{{ form_end(form) }}&#35;&#125;#}
-    {#&#123;&#35;</section>&#35;&#125;#}
-{#</section>#}
-    <!-- Button trigger modal -->
-
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}

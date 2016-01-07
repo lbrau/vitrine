@@ -13,5 +13,9 @@
             <!--<argument>plain_value</argument>-->
             <argument>%kernel.root_dir%</argument>
         </service>
+        <service id="front.email_manager" class="Front\FrontBundle\Service\MailerManager">
+            <argument type="service" id="mailer" />
+            <argument>%kernel.root_dir%</argument>
+        </service>
     </services>
 </container>
